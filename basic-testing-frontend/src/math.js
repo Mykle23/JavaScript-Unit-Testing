@@ -1,4 +1,4 @@
-import { cleanNumbers } from "./util/numbers";
+import { cleanNumbers } from "./util/numbers.js";
 
 export function add(numbers) {
   let sum = 0;
