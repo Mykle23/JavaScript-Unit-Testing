@@ -1,20 +1,17 @@
 import { vi, it, describe, expect } from "vitest";
 import { validateNotEmpty } from "./validation";
-vi.mock("./errors.js", () => {
-  return {
-    default: {
-      ValidationError: class ValidationError extends Error {
-        constructor(message) {
-          super(message);
-          this.name = "ValidationError"; // Nombre del error personalizado
-        }
-      },
-    },
-  };
-});
+
 describe("validateNotEmpty()", () => {
-  it("should throw error if argument is an empty string", () => {
+  it("should throw error if an empty string is provided as a value", () => {
     const emptyText = "";
+    const errorMessage = "Text can't be empty string";
+
+    const resultFn = () => validateNotEmpty(emptyText, errorMessage);
+
+    expect(resultFn).toThrow();
+  });
+  it("should throw error if argument is an empty blank string", () => {
+    const emptyText = "  ";
     const errorMessage = "Text can't be empty string";
 
     const result = () => validateNotEmpty(emptyText, errorMessage);
@@ -27,6 +24,6 @@ describe("validateNotEmpty()", () => {
 
     const result = () => validateNotEmpty(emptyText, errorMessage);
 
-    expect(result).toThrow(/Text can't be empty string/);
+    expect(result).toThrow(errorMessage);
   });
 });
